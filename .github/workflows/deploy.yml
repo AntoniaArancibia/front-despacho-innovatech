@@ -14,12 +14,11 @@ jobs:
     - name: Configurar llave SSH
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets::SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.INSTANCE_IP }} >> ~/.ssh/known_hosts
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
     - name: Desplegar en AWS EC2 via SSH
       run: |
-        ssh -i ~/.ssh/id_rsa ec2-user@10.0.11.72 "sudo docker stop web-front || true && sudo docker rm web-front || true && sudo docker run -d --name web-front -p 80:80 nginx:alpine"
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ec2-user@10.0.11.72 "sudo docker stop web-front || true && sudo docker rm web-front || true && sudo docker run -d --name web-front -p 80:80 nginx:alpine"
