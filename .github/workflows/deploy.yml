@@ -21,4 +21,4 @@ jobs:
 
     - name: Desplegar en AWS EC2 via SSH
       run: |
-        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ec2-user@10.0.11.72 "sudo docker stop web-front || true && sudo docker rm web-front || true && sudo docker run -d --name web-front -p 80:80 nginx:alpine"
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ec2-user@3.90.234.57 "sudo docker stop web-front || true && sudo docker rm web-front || true && sudo docker run -d --name web-front -p 80:80 nginx:alpine"
